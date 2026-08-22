@@ -1,3 +1,5 @@
+<!-- deploy trigger: confirming Vercel Git integration -->
+
 # Maay Luxe Events — Website
 
 Next.js 16 (App Router) + TypeScript + Tailwind CSS + Framer Motion + Lenis smooth scroll.
