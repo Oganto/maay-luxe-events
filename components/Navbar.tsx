@@ -26,20 +26,36 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  // The nav sits over a dark hero video at the top of the page, then gets an
+  // ivory background once scrolled — text needs to flip from light to dark
+  // to stay legible in both states.
+  const light = !scrolled && !menuOpen;
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-editorial ${
         scrolled || menuOpen
-          ? "bg-ivory/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(34,26,43,0.08)]"
+          ? "bg-ivory/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(69,24,109,0.08)]"
           : "bg-transparent"
       }`}
     >
       <nav className="container-editorial flex h-20 items-center justify-between md:h-24">
-        <a
-          href="#home"
-          className="font-display text-lg tracking-wide2 text-ink md:text-xl"
-        >
-          MAAY LUXE
+        <a href="#home" className="flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ivory shadow-sm md:h-10 md:w-10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/logo-mark.png"
+              alt="Maay Luxe Events monogram"
+              className="h-6 w-6 object-contain md:h-7 md:w-7"
+            />
+          </span>
+          <span
+            className={`font-display text-lg tracking-wide2 transition-colors duration-500 md:text-xl ${
+              light ? "text-ivory" : "text-ink"
+            }`}
+          >
+            MAAY LUXE
+          </span>
         </a>
 
         {/* Desktop nav */}
@@ -48,7 +64,9 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="font-body text-[0.78rem] font-medium uppercase tracking-wide2 text-ink/80 transition-colors duration-300 hover:text-plum"
+                className={`font-body text-[0.78rem] font-medium uppercase tracking-wide2 transition-colors duration-500 hover:text-gold ${
+                  light ? "text-ivory/90" : "text-ink/80"
+                }`}
               >
                 {link.label}
               </a>
@@ -60,7 +78,11 @@ export default function Navbar() {
           <MagneticLink
             href="#contact"
             strength={0.25}
-            className="inline-flex items-center border border-plum px-6 py-2.5 font-body text-[0.75rem] font-semibold uppercase tracking-wide2 text-plum transition-colors duration-300 hover:bg-plum hover:text-ivory"
+            className={`inline-flex items-center border px-6 py-2.5 font-body text-[0.75rem] font-semibold uppercase tracking-wide2 transition-colors duration-500 ${
+              light
+                ? "border-ivory/70 text-ivory hover:bg-ivory hover:text-plum"
+                : "border-plum text-plum hover:bg-plum hover:text-ivory"
+            }`}
           >
             Plan Your Event
           </MagneticLink>
@@ -75,14 +97,14 @@ export default function Navbar() {
           className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-[6px] lg:hidden"
         >
           <span
-            className={`block h-px w-6 bg-ink transition-transform duration-300 ${
-              menuOpen ? "translate-y-[3.5px] rotate-45" : ""
-            }`}
+            className={`block h-px w-6 transition-all duration-300 ${
+              light ? "bg-ivory" : "bg-ink"
+            } ${menuOpen ? "translate-y-[3.5px] rotate-45 !bg-ink" : ""}`}
           />
           <span
-            className={`block h-px w-6 bg-ink transition-transform duration-300 ${
-              menuOpen ? "-translate-y-[3.5px] -rotate-45" : ""
-            }`}
+            className={`block h-px w-6 transition-all duration-300 ${
+              light ? "bg-ivory" : "bg-ink"
+            } ${menuOpen ? "-translate-y-[3.5px] -rotate-45 !bg-ink" : ""}`}
           />
         </button>
       </nav>

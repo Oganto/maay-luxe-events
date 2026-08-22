@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import PortfolioImage from "./PortfolioImage";
 import { visionMission } from "@/lib/data";
 
 export default function VisionMission() {
@@ -14,7 +15,10 @@ export default function VisionMission() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6 }}
           >
-            <p className="eyebrow mb-4">Our Vision</p>
+            <p className="eyebrow mb-4 flex items-center gap-2">
+              <span className="text-gold">✦</span>
+              Our Vision
+            </p>
             <p className="font-display text-2xl leading-snug text-ink md:text-[2rem]">
               {visionMission.vision}
             </p>
@@ -25,25 +29,36 @@ export default function VisionMission() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <p className="eyebrow mb-4">Our Mission</p>
+            <p className="eyebrow mb-4 flex items-center gap-2">
+              <span className="text-gold">✦</span>
+              Our Mission
+            </p>
             <p className="font-display text-2xl leading-snug text-ink md:text-[2rem]">
               {visionMission.mission}
             </p>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="mt-20 border-t border-ink/10 pt-16 text-center md:mt-24 md:pt-20"
-        >
-          <p className="mx-auto max-w-3xl font-display text-[clamp(1.8rem,4vw,3rem)] italic leading-tight text-plum">
-            {visionMission.closing}
-          </p>
-        </motion.div>
       </div>
+
+      {/* Closing statement — full-bleed photo moment, a dramatic pause before Services */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-15%" }}
+        transition={{ duration: 0.9 }}
+        className="relative mt-20 flex h-[60vh] min-h-[380px] w-full items-center justify-center overflow-hidden md:mt-24 md:h-[70vh]"
+      >
+        <div className="absolute inset-0">
+          <PortfolioImage
+            src="/assets/events/event-08-inroom-proposal.jpg"
+            alt="Candlelit proposal styling by Maay Luxe Events"
+          />
+        </div>
+        <div className="absolute inset-0 bg-plum-deep/70" />
+        <p className="relative z-10 mx-auto max-w-3xl px-6 text-center font-display text-[clamp(1.8rem,4vw,3rem)] italic leading-tight text-ivory">
+          {visionMission.closing}
+        </p>
+      </motion.div>
     </section>
   );
 }

@@ -20,7 +20,7 @@ export default function CoreValues() {
               transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
               className="group grid grid-cols-1 items-baseline gap-2 border-b border-ivory/15 py-6 md:grid-cols-12 md:gap-6 md:py-8"
             >
-              <span className="font-body text-sm text-lavender md:col-span-1">
+              <span className="font-body text-sm text-gold md:col-span-1">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="font-display text-2xl text-ivory transition-colors duration-300 group-hover:text-lavender md:col-span-4 md:text-3xl">

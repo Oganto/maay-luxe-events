@@ -7,11 +7,12 @@ const config: Config = {
       colors: {
         ivory: "#FAF6EF",
         porcelain: "#F1EBE0",
-        lavender: "#C9BEE0",
-        "lavender-mist": "#EFEAF6",
-        plum: "#4E3169",
-        "plum-deep": "#372050",
-        ink: "#221A2B",
+        lavender: "#9A68C0",
+        "lavender-mist": "#F2E9FA",
+        plum: "#45186D",
+        "plum-deep": "#2B0F49",
+        ink: "#1D1129",
+        gold: "#C6A15B",
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],

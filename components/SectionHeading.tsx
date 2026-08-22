@@ -24,8 +24,9 @@ export default function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="eyebrow mb-4"
+          className={`eyebrow mb-4 flex items-center gap-2 ${align === "center" ? "justify-center" : ""}`}
         >
+          <span className="text-gold">✦</span>
           {eyebrow}
         </motion.p>
       )}
