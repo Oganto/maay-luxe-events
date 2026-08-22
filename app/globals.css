@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --overlay-soft: rgba(34, 26, 43, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: #faf6ef;
+  color: #221a2b;
+  font-feature-settings: "ss01" on, "case" on;
+}
+
+/* Visible, elegant keyboard focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #4e3169;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Respect reduced motion everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Shared editorial primitives */
+.container-editorial {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-editorial {
+    padding-inline: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-editorial {
+    padding-inline: 5rem;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-manrope);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #4e3169;
+}
+
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: rgba(34, 26, 43, 0.12);
+}
+
+/* Placeholder asset frame — visually marks an unfilled brand asset */
+.asset-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    135deg,
+    #f1ebe0,
+    #f1ebe0 10px,
+    #ede5d6 10px,
+    #ede5d6 20px
+  );
+  color: #6b5f78;
+  text-align: center;
+  font-family: var(--font-manrope);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.asset-placeholder span {
+  padding: 0.75rem 1.25rem;
+  background: rgba(250, 246, 239, 0.85);
+  border: 1px solid rgba(34, 26, 43, 0.15);
+}
