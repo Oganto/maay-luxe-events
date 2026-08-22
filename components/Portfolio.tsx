@@ -1,24 +1,15 @@
 "use client";
 
-import { useMemo, useState, type MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import PortfolioImage from "./PortfolioImage";
-import { portfolioCategories, portfolioItems } from "@/lib/data";
+import { portfolioItems } from "@/lib/data";
 
 export default function Portfolio() {
-  const [category, setCategory] = useState<(typeof portfolioCategories)[number]>("All");
   const [lightboxId, setLightboxId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-
-  const filtered = useMemo(
-    () =>
-      category === "All"
-        ? portfolioItems
-        : portfolioItems.filter((item) => item.category === category),
-    [category]
-  );
 
   const lightboxItem = portfolioItems.find((item) => item.id === lightboxId) ?? null;
 
@@ -28,35 +19,17 @@ export default function Portfolio() {
   }
 
   return (
-    <section id="portfolio" className="bg-porcelain py-28 md:py-36">
+    <section id="portfolio" className="bg-porcelain py-24 md:py-36">
       <div className="container-editorial">
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeading eyebrow="Our Work" title="Portfolio" align="left">
-            Large, beautiful images with minimal text — letting the work speak.
-          </SectionHeading>
+        <SectionHeading eyebrow="Our Work" title="Portfolio" align="left">
+          Large, beautiful images with minimal text — letting the work speak.
+        </SectionHeading>
 
-          <div className="flex flex-wrap gap-x-6 gap-y-3">
-            {portfolioCategories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setCategory(cat)}
-                className={`font-body text-[0.72rem] font-semibold uppercase tracking-wide2 transition-colors duration-300 ${
-                  category === cat ? "text-plum" : "text-ink/45 hover:text-ink"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((item, i) => (
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:mt-16 lg:grid-cols-3">
+          {portfolioItems.map((item, i) => (
             <motion.button
               type="button"
               key={item.id}
-              layout
               initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
               whileInView={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
               viewport={{ once: true, margin: "-10%" }}
@@ -65,24 +38,21 @@ export default function Portfolio() {
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
               onMouseMove={handleMouseMove}
-              className={`group relative block cursor-none overflow-hidden text-left ${
+              className={`group relative block overflow-hidden text-left md:cursor-none ${
                 item.orientation === "portrait" ? "aspect-[3/4]" : "aspect-[4/3]"
-              } ${i % 5 === 0 ? "sm:col-span-2" : ""}`}
+              } ${item.featured ? "col-span-2" : ""}`}
             >
               <div className="h-full w-full overflow-hidden">
                 <div className="h-full w-full transition-transform duration-700 ease-editorial group-hover:scale-105">
                   <PortfolioImage src={item.image} alt={item.title} />
                 </div>
               </div>
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="pointer-events-none absolute bottom-0 left-0 translate-y-3 p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                <p className="font-display text-lg italic text-ivory">{item.title}</p>
-                <p className="font-body text-[0.68rem] uppercase tracking-wide2 text-ivory/70">
-                  {item.category}
-                </p>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/0 to-transparent opacity-70 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100" />
+              <div className="pointer-events-none absolute bottom-0 left-0 p-3 transition-all duration-500 sm:p-5 md:translate-y-3 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
+                <p className="font-display text-sm italic text-ivory sm:text-lg">{item.title}</p>
               </div>
 
-              {/* Custom "View" cursor tag — follows the pointer while hovering this image */}
+              {/* Custom "View" cursor tag — desktop only, follows the pointer while hovering */}
               <AnimatePresence>
                 {hoveredId === item.id && (
                   <motion.div
@@ -91,7 +61,7 @@ export default function Portfolio() {
                     exit={{ opacity: 0, scale: 0.6 }}
                     transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                     style={{ left: cursorPos.x, top: cursorPos.y }}
-                    className="pointer-events-none absolute z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ivory/95"
+                    className="pointer-events-none absolute z-10 hidden h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ivory/95 md:flex"
                   >
                     <span className="font-body text-[0.62rem] font-semibold uppercase tracking-wide2 text-ink">
                       View

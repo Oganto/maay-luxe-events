@@ -36,7 +36,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6 }}
-            className="eyebrow mb-4 flex items-center gap-2"
+            className="eyebrow mb-4 flex items-center gap-2 text-plum"
           >
             <span className="text-gold">✦</span>
             About

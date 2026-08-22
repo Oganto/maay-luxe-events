@@ -15,7 +15,7 @@ export default function VisionMission() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6 }}
           >
-            <p className="eyebrow mb-4 flex items-center gap-2">
+            <p className="eyebrow mb-4 flex items-center gap-2 text-plum">
               <span className="text-gold">✦</span>
               Our Vision
             </p>
@@ -29,7 +29,7 @@ export default function VisionMission() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <p className="eyebrow mb-4 flex items-center gap-2">
+            <p className="eyebrow mb-4 flex items-center gap-2 text-plum">
               <span className="text-gold">✦</span>
               Our Mission
             </p>

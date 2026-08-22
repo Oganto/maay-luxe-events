@@ -8,7 +8,7 @@ export default function CoreValues() {
   return (
     <section className="bg-ink py-28 text-ivory md:py-36">
       <div className="container-editorial">
-        <SectionHeading eyebrow="What We Stand On" title="Core Values" align="left" />
+        <SectionHeading eyebrow="What We Stand On" title="Core Values" align="left" theme="dark" />
 
         <div className="mt-16 border-t border-ivory/15">
           {coreValues.map((value, i) => (

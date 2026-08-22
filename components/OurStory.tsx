@@ -9,7 +9,7 @@ export default function OurStory() {
       <div className="container-editorial grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
-            <p className="eyebrow mb-4">Our Story</p>
+            <p className="eyebrow mb-4 text-plum">Our Story</p>
             <h2 className="font-display text-[clamp(2.2rem,4.4vw,3.4rem)] leading-[1.08] text-ink">
               From Curiosity to Craft.
               <br />

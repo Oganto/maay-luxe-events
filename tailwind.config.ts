@@ -8,7 +8,7 @@ const config: Config = {
         ivory: "#FAF6EF",
         porcelain: "#F1EBE0",
         lavender: "#9A68C0",
-        "lavender-mist": "#F2E9FA",
+        "lavender-mist": "#E9D9F7",
         plum: "#45186D",
         "plum-deep": "#2B0F49",
         ink: "#1D1129",

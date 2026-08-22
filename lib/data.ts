@@ -131,10 +131,12 @@ export type PortfolioItem = {
   image: string;
   orientation: "portrait" | "landscape";
   caption?: string;
+  /** Larger grid treatment for standout images — curated, not automatic. */
+  featured?: boolean;
 };
 
-// Real event photography — categories inferred from each photo; adjust
-// titles/captions/categories anytime, the gallery updates automatically.
+// Real event photography. Order and `featured` are curated for the grid
+// layout — rearrange freely, the gallery follows this array's order.
 export const portfolioItems: PortfolioItem[] = [
   {
     id: "event-01",
@@ -143,6 +145,7 @@ export const portfolioItems: PortfolioItem[] = [
     image: "/assets/events/event-01-hall-reception.jpg",
     orientation: "landscape",
     caption: "Draped gold and ivory staging for a milestone reception, warmed by soft ambient light.",
+    featured: true,
   },
   {
     id: "event-02",
@@ -161,12 +164,12 @@ export const portfolioItems: PortfolioItem[] = [
     caption: "A playful world in soft blue and gold, built around a favourite character.",
   },
   {
-    id: "event-04",
-    title: "In The Wild II — Garden Picnic",
-    category: "Celebrations",
-    image: "/assets/events/event-04-in-the-wild-picnic.jpg",
-    orientation: "landscape",
-    caption: "An open-air picnic styled in blush tones, set against manicured garden hedges.",
+    id: "event-06",
+    title: "Elegant Place Setting",
+    category: "Styling & Decor",
+    image: "/assets/events/event-06-place-setting.jpg",
+    orientation: "portrait",
+    caption: "Fine china and gold flatware, finished with a single bloom at every seat.",
   },
   {
     id: "event-05",
@@ -175,14 +178,7 @@ export const portfolioItems: PortfolioItem[] = [
     image: "/assets/events/event-05-picnic-setup.jpg",
     orientation: "landscape",
     caption: "Low seating, layered textiles, and florals arranged for an intimate outdoor gathering.",
-  },
-  {
-    id: "event-06",
-    title: "Elegant Place Setting",
-    category: "Styling & Decor",
-    image: "/assets/events/event-06-place-setting.jpg",
-    orientation: "portrait",
-    caption: "Fine china and gold flatware, finished with a single bloom at every seat.",
+    featured: true,
   },
   {
     id: "event-07",
@@ -201,12 +197,21 @@ export const portfolioItems: PortfolioItem[] = [
     caption: "Candlelight, red balloons, and a headboard spelled out for a private proposal.",
   },
   {
+    id: "event-04",
+    title: "In The Wild II — Garden Picnic",
+    category: "Celebrations",
+    image: "/assets/events/event-04-in-the-wild-picnic.jpg",
+    orientation: "landscape",
+    caption: "An open-air picnic styled in blush tones, set against manicured garden hedges.",
+  },
+  {
     id: "event-09",
     title: "60th Birthday Celebration",
     category: "Birthdays",
     image: "/assets/events/event-09-60th-birthday.jpg",
     orientation: "landscape",
     caption: "A milestone birthday styled in blush and gold beneath a draped tent.",
+    featured: true,
   },
 ];
 
