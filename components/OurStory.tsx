@@ -33,7 +33,7 @@ export default function OurStory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-15%" }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="font-body text-[1.05rem] leading-[1.85] text-ink/75"
+              className="font-body text-[1.05rem] leading-[1.85] text-ink/82"
             >
               {paragraph}
             </motion.p>

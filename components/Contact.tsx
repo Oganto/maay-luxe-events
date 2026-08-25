@@ -8,9 +8,9 @@ import { MagneticButtonEl } from "./MagneticButton";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputClass =
-  "w-full border-b border-ink/20 bg-transparent py-3 font-body text-sm text-ink placeholder:text-ink/40 focus:border-plum focus:outline-none transition-colors duration-300";
+  "w-full border-b border-ivory/25 bg-transparent py-3 font-body text-sm text-ivory placeholder:text-ivory/55 focus:border-gold focus:outline-none transition-colors duration-300";
 
-const labelClass = "font-body text-[0.68rem] uppercase tracking-wide2 text-ink/50";
+const labelClass = "font-body text-[0.68rem] uppercase tracking-wide2 text-ivory/65";
 
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
@@ -64,7 +64,7 @@ export default function Contact() {
           <div className="mt-12 flex flex-col gap-5">
             <a
               href={`mailto:${brand.email}`}
-              className="font-body text-sm text-ivory/80 underline decoration-ivory/30 underline-offset-4 transition-colors hover:text-ivory"
+              className="font-body text-sm text-ivory/90 underline decoration-ivory/30 underline-offset-4 transition-colors hover:text-ivory"
             >
               {brand.email}
             </a>
@@ -72,7 +72,7 @@ export default function Contact() {
               href={brand.whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="font-body text-sm text-ivory/80 underline decoration-ivory/30 underline-offset-4 transition-colors hover:text-ivory"
+              className="font-body text-sm text-ivory/90 underline decoration-ivory/30 underline-offset-4 transition-colors hover:text-ivory"
             >
               WhatsApp — {brand.whatsapp}
             </a>
@@ -80,11 +80,11 @@ export default function Contact() {
               href={brand.instagramUrl}
               target="_blank"
               rel="noreferrer"
-              className="font-body text-sm text-ivory/80 underline decoration-ivory/30 underline-offset-4 transition-colors hover:text-ivory"
+              className="font-body text-sm text-ivory/90 underline decoration-ivory/30 underline-offset-4 transition-colors hover:text-ivory"
             >
               {brand.instagramHandle}
             </a>
-            <p className="font-body text-sm text-ivory/60">{brand.location}</p>
+            <p className="font-body text-sm text-ivory/75">{brand.location}</p>
           </div>
         </div>
 

@@ -28,7 +28,7 @@ export default function Experience() {
               <div className="mb-6 h-px w-full bg-ivory/15 md:mb-8" />
               <span className="font-display text-lg italic text-gold">{step.number}</span>
               <h3 className="mt-3 font-display text-2xl text-ivory">{step.title}</h3>
-              <p className="mt-3 font-body text-[0.9rem] leading-relaxed text-ivory/60">
+              <p className="mt-3 font-body text-[0.9rem] leading-relaxed text-ivory/75">
                 {step.description}
               </p>
             </motion.div>

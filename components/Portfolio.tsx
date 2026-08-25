@@ -138,7 +138,7 @@ export default function Portfolio() {
               type="button"
               aria-label="Close viewer"
               onClick={() => setLightboxId(null)}
-              className="absolute right-6 top-6 font-body text-[0.72rem] uppercase tracking-wide2 text-ivory/80 hover:text-ivory"
+              className="absolute right-6 top-6 font-body text-[0.72rem] uppercase tracking-wide2 text-ivory/90 hover:text-ivory"
             >
               Close
             </button>
@@ -157,7 +157,7 @@ export default function Portfolio() {
               <div className="mt-5 max-w-lg text-center">
                 <p className="font-display text-xl italic text-ivory">{lightboxItem.title}</p>
                 {lightboxItem.caption && (
-                  <p className="mt-2 font-body text-sm text-ivory/60">{lightboxItem.caption}</p>
+                  <p className="mt-2 font-body text-sm text-ivory/75">{lightboxItem.caption}</p>
                 )}
               </div>
             </motion.div>

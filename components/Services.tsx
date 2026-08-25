@@ -41,7 +41,7 @@ export default function Services() {
                     {service.title}
                   </h3>
                 </div>
-                <p className="max-w-sm font-body text-[0.92rem] leading-relaxed text-ink/55 md:text-right">
+                <p className="max-w-sm font-body text-[0.92rem] leading-relaxed text-ink/68 md:text-right">
                   {service.description}
                 </p>
               </div>

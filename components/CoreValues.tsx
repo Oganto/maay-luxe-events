@@ -26,7 +26,7 @@ export default function CoreValues() {
               <h3 className="font-display text-2xl text-ivory transition-colors duration-300 group-hover:text-lavender md:col-span-4 md:text-3xl">
                 {value.title}
               </h3>
-              <p className="font-body text-[0.95rem] leading-relaxed text-ivory/60 md:col-span-7">
+              <p className="font-body text-[0.95rem] leading-relaxed text-ivory/75 md:col-span-7">
                 {value.description}
               </p>
             </motion.div>

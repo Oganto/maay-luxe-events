@@ -19,7 +19,7 @@ export default function Footer() {
               </span>
               <p className="font-display text-2xl tracking-wide2">{brand.name}</p>
             </div>
-            <p className="mt-3 font-display italic text-ivory/60">{brand.tagline}</p>
+            <p className="mt-3 font-display italic text-ivory/75">{brand.tagline}</p>
           </div>
 
           <nav aria-label="Footer navigation">
@@ -28,7 +28,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="font-body text-sm text-ivory/70 transition-colors hover:text-gold"
+                    className="font-body text-sm text-ivory/85 transition-colors hover:text-gold"
                   >
                     {link.label}
                   </a>
@@ -38,20 +38,20 @@ export default function Footer() {
           </nav>
 
           <div className="flex flex-col gap-2">
-            <a href={brand.instagramUrl} target="_blank" rel="noreferrer" className="font-body text-sm text-ivory/70 hover:text-gold">
+            <a href={brand.instagramUrl} target="_blank" rel="noreferrer" className="font-body text-sm text-ivory/85 hover:text-gold">
               Instagram
             </a>
-            <a href={brand.whatsappUrl} target="_blank" rel="noreferrer" className="font-body text-sm text-ivory/70 hover:text-gold">
+            <a href={brand.whatsappUrl} target="_blank" rel="noreferrer" className="font-body text-sm text-ivory/85 hover:text-gold">
               WhatsApp
             </a>
-            <a href={`mailto:${brand.email}`} className="font-body text-sm text-ivory/70 hover:text-gold">
+            <a href={`mailto:${brand.email}`} className="font-body text-sm text-ivory/85 hover:text-gold">
               {brand.email}
             </a>
-            <p className="font-body text-sm text-ivory/50">{brand.location}</p>
+            <p className="font-body text-sm text-ivory/65">{brand.location}</p>
           </div>
         </div>
 
-        <div className="mt-16 flex items-center gap-3 border-t border-ivory/10 pt-6 text-xs text-ivory/40">
+        <div className="mt-16 flex items-center gap-3 border-t border-ivory/10 pt-6 text-xs text-ivory/55">
           <span className="text-gold">✦</span>
           <p>© {year} {brand.name}. All rights reserved.</p>
         </div>

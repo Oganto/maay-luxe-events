@@ -55,7 +55,7 @@ export default function SectionHeading({
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
           className={`mt-5 max-w-xl text-[0.98rem] leading-relaxed ${
-            isDark ? "text-ivory/70" : "text-ink/70"
+            isDark ? "text-ivory/85" : "text-ink/88"
           }`}
         >
           {children}

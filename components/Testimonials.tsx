@@ -25,7 +25,7 @@ export default function Testimonials() {
               transition={{ duration: 0.6, delay: i * 0.08 }}
               className="flex flex-col justify-between bg-ivory p-8"
             >
-              <blockquote className="font-display text-lg italic leading-relaxed text-ink/85">
+              <blockquote className="font-display text-lg italic leading-relaxed text-ink/90">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-8 flex items-center gap-3">
@@ -39,7 +39,7 @@ export default function Testimonials() {
                 )}
                 <div>
                   <p className="font-body text-sm font-semibold text-ink">{t.name}</p>
-                  <p className="font-body text-xs uppercase tracking-wide2 text-ink/50">
+                  <p className="font-body text-xs uppercase tracking-wide2 text-ink/65">
                     {t.eventType}
                   </p>
                 </div>

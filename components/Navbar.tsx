@@ -65,7 +65,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 className={`font-body text-[0.78rem] font-medium uppercase tracking-wide2 transition-colors duration-500 hover:text-gold ${
-                  light ? "text-ivory/90" : "text-ink/80"
+                  light ? "text-ivory/90" : "text-ink/88"
                 }`}
               >
                 {link.label}
@@ -133,7 +133,7 @@ export default function Navbar() {
                 </motion.li>
               ))}
             </ul>
-            <div className="container-editorial mt-10 flex flex-col gap-2 text-[0.8rem] uppercase tracking-wide2 text-ink/60">
+            <div className="container-editorial mt-10 flex flex-col gap-2 text-[0.8rem] uppercase tracking-wide2 text-ink/72">
               <a href={brand.whatsappUrl} target="_blank" rel="noreferrer">
                 WhatsApp
               </a>

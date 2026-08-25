@@ -97,7 +97,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
-                className="font-display text-xl leading-relaxed text-ink/80 md:text-2xl"
+                className="font-display text-xl leading-relaxed text-ink/88 md:text-2xl"
               >
                 {paragraph}
               </motion.p>

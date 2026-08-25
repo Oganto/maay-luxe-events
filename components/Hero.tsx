@@ -169,7 +169,7 @@ export default function Hero() {
         className="absolute bottom-8 right-6 z-10 hidden items-center gap-3 md:right-12 md:flex"
       >
         <span className="h-10 w-px bg-ivory/50" />
-        <span className="font-body text-[0.68rem] uppercase tracking-wide2 text-ivory/70">
+        <span className="font-body text-[0.68rem] uppercase tracking-wide2 text-ivory/85">
           Scroll
         </span>
       </motion.div>

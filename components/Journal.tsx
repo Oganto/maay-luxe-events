@@ -34,7 +34,7 @@ export default function Journal() {
                 {post.category}
               </p>
               <h3 className="mt-2 font-display text-xl text-ink">{post.title}</h3>
-              <p className="mt-2 font-body text-sm leading-relaxed text-ink/60">
+              <p className="mt-2 font-body text-sm leading-relaxed text-ink/72">
                 {post.excerpt}
               </p>
             </motion.article>
