@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { brand } from "@/lib/data";
 import { MagneticLink } from "./MagneticButton";
+import PortfolioImage from "./PortfolioImage";
+import { gsap } from "@/lib/gsap";
 
 const line = {
   hidden: { opacity: 0, y: 28 },
@@ -17,46 +19,96 @@ const line = {
 
 export default function Hero() {
   const [videoFailed, setVideoFailed] = useState(false);
-  const { scrollY } = useScroll();
-  const videoY = useTransform(scrollY, [0, 800], [0, 160]);
-  const contentY = useTransform(scrollY, [0, 800], [0, 60]);
-  const contentOpacity = useTransform(scrollY, [0, 500], [1, 0.2]);
+  const sectionRef = useRef<HTMLElement>(null);
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion || !sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Slow ambient zoom, independent of scroll — the "film opening" feel
+      gsap.fromTo(
+        mediaRef.current,
+        { scale: 1.06 },
+        { scale: 1.16, duration: 12, ease: "none" }
+      );
+
+      // Scroll-scrubbed: background continues to scale/drift and the content
+      // fades and lifts away as the visitor scrolls past the hero, so the
+      // next section feels like it's emerging from underneath rather than
+      // cutting in abruptly.
+      gsap.to(mediaRef.current, {
+        scale: 1.32,
+        yPercent: 12,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      gsap.to(contentRef.current, {
+        yPercent: 30,
+        opacity: 0.15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "70% top",
+          scrub: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="home" className="relative flex h-[100dvh] w-full items-end overflow-hidden bg-ink">
-      {/* Background video — drop the real file at /public/assets/hero-video.mp4 */}
-      {!videoFailed ? (
-        <motion.video
-          style={{ y: videoY }}
-          className="absolute inset-0 h-[112%] w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/assets/hero-poster.jpg"
-          onError={() => setVideoFailed(true)}
-        >
-          <source src="/assets/hero-video.mp4" type="video/mp4" />
-        </motion.video>
-      ) : (
-        <div className="asset-placeholder absolute inset-0">
-          <span>Hero video — add /assets/hero-video.mp4</span>
-        </div>
-      )}
+    <section
+      ref={sectionRef}
+      id="home"
+      className="relative flex h-[100dvh] w-full items-end overflow-hidden bg-ink"
+    >
+      {/* Background — real hero video once provided; a real event photo with a
+          slow cinematic zoom in the meantime, never a placeholder graphic. */}
+      <div ref={mediaRef} className="absolute inset-0 h-full w-full will-change-transform">
+        {!videoFailed ? (
+          <video
+            className="h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/assets/hero-poster.jpg"
+            onError={() => setVideoFailed(true)}
+          >
+            <source src="/assets/hero-video.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <PortfolioImage
+            src="/assets/events/event-01-hall-reception.jpg"
+            alt="Maay Luxe Events — hall reception styling"
+            className="h-full w-full object-cover"
+          />
+        )}
+      </div>
 
       {/* Soft overlay for text readability */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(34,26,43,0.15) 0%, rgba(34,26,43,0.1) 45%, rgba(34,26,43,0.55) 100%)",
+            "linear-gradient(180deg, rgba(29,17,41,0.25) 0%, rgba(29,17,41,0.15) 45%, rgba(29,17,41,0.65) 100%)",
         }}
       />
 
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="container-editorial relative z-10 w-full pb-16 pt-40 md:pb-24"
-      >
+      <div ref={contentRef} className="container-editorial relative z-10 w-full pb-16 pt-40 md:pb-24">
         <motion.p
           custom={0.1}
           initial="hidden"
@@ -107,7 +159,7 @@ export default function Hero() {
             Explore Our Work
           </MagneticLink>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Scroll cue */}
       <motion.div

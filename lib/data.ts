@@ -18,14 +18,15 @@ export const brand = {
   location: "Lagos, Nigeria",
 };
 
+// "Kind Words" (#testimonials) and "Journal" (#journal) are left out of nav
+// for now since those sections hide themselves until real content exists —
+// add them back here once testimonials/journalPosts below have entries.
 export const navLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Portfolio", href: "#portfolio" },
   { label: "Experience", href: "#experience" },
-  { label: "Kind Words", href: "#testimonials" },
-  { label: "Journal", href: "#journal" },
   { label: "Contact", href: "#contact" },
 ];
 

@@ -12,7 +12,8 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "framer-motion": "^11.11.9",
-    "lenis": "^1.1.14"
+    "lenis": "^1.1.14",
+    "gsap": "^3.12.5"
   },
   "devDependencies": {
     "typescript": "^5.6.3",

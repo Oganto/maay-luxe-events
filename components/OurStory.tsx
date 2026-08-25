@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import PortfolioImage from "./PortfolioImage";
 import { ourStoryParagraphs } from "@/lib/data";
 
 export default function OurStory() {
@@ -15,8 +16,11 @@ export default function OurStory() {
               <br />
               From Moments to Maay Luxe.
             </h2>
-            <div className="asset-placeholder mt-10 aspect-[4/5] w-full max-w-sm">
-              <span>Founder portrait — /assets/images/founder.jpg</span>
+            <div className="mt-10 aspect-[4/5] w-full max-w-sm overflow-hidden border-4 border-ivory shadow-xl">
+              <PortfolioImage
+                src="/assets/events/event-02-rooftop-proposal.jpg"
+                alt="Styling by Maay Luxe Events"
+              />
             </div>
           </div>
         </div>

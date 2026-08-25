@@ -1,15 +1,18 @@
 "use client";
 
-import { useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import PortfolioImage from "./PortfolioImage";
 import { portfolioItems } from "@/lib/data";
+import { gsap } from "@/lib/gsap";
 
 export default function Portfolio() {
   const [lightboxId, setLightboxId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const gridRef = useRef<HTMLDivElement>(null);
+  const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const lightboxItem = portfolioItems.find((item) => item.id === lightboxId) ?? null;
 
@@ -18,6 +21,43 @@ export default function Portfolio() {
     setCursorPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   }
 
+  // Gentle scroll-scrubbed parallax — alternating tiles drift at slightly
+  // different speeds as the gallery scrolls past, the classic editorial
+  // gallery feel. Desktop-only and skipped for reduced-motion.
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      const triggers = tileRefs.current.map((el, i) => {
+        if (!el) return null;
+        const inner = el.querySelector<HTMLElement>("[data-parallax-inner]");
+        if (!inner) return null;
+        const distance = item(i)?.featured ? 18 : 30;
+        const direction = i % 2 === 0 ? -1 : 1;
+        return gsap.fromTo(
+          inner,
+          { yPercent: -direction * distance * 0.5 },
+          {
+            yPercent: direction * distance * 0.5,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      });
+      return () => triggers.forEach((t) => t?.scrollTrigger?.kill());
+    });
+
+    function item(i: number) {
+      return portfolioItems[i];
+    }
+
+    return () => mm.revert();
+  }, []);
+
   return (
     <section id="portfolio" className="bg-porcelain py-24 md:py-36">
       <div className="container-editorial">
@@ -25,11 +65,14 @@ export default function Portfolio() {
           Large, beautiful images with minimal text — letting the work speak.
         </SectionHeading>
 
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:mt-16 lg:grid-cols-3">
+        <div ref={gridRef} className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:mt-16 lg:grid-cols-3">
           {portfolioItems.map((item, i) => (
             <motion.button
               type="button"
               key={item.id}
+              ref={(el) => {
+                tileRefs.current[i] = el as unknown as HTMLDivElement;
+              }}
               initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
               whileInView={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
               viewport={{ once: true, margin: "-10%" }}
@@ -43,7 +86,10 @@ export default function Portfolio() {
               } ${item.featured ? "col-span-2" : ""}`}
             >
               <div className="h-full w-full overflow-hidden">
-                <div className="h-full w-full transition-transform duration-700 ease-editorial group-hover:scale-105">
+                <div
+                  data-parallax-inner
+                  className="h-[130%] w-full -translate-y-[8%] transition-transform duration-700 ease-editorial group-hover:scale-105 md:h-[140%] md:-translate-y-[10%]"
+                >
                   <PortfolioImage src={item.image} alt={item.title} />
                 </div>
               </div>
