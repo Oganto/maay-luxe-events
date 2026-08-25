@@ -135,7 +135,7 @@ export default function Contact() {
             type="submit"
             disabled={status === "submitting"}
             strength={0.2}
-            className="mt-10 inline-flex items-center bg-ivory px-8 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ink transition-colors duration-300 hover:bg-lavender disabled:opacity-60"
+            className="mt-10 inline-flex items-center bg-gold px-8 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ink transition-colors duration-300 hover:bg-lavender disabled:opacity-60"
           >
             {status === "submitting" ? "Sending…" : "Inquire With Maay Luxe"}
           </MagneticButtonEl>

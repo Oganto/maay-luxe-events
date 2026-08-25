@@ -6,7 +6,7 @@ const config: Config = {
     extend: {
       colors: {
         ivory: "#FAF6EF",
-        porcelain: "#F1EBE0",
+        porcelain: "#EFE3F5",
         lavender: "#9A68C0",
         "lavender-mist": "#E9D9F7",
         plum: "#45186D",

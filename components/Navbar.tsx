@@ -78,11 +78,7 @@ export default function Navbar() {
           <MagneticLink
             href="#contact"
             strength={0.25}
-            className={`inline-flex items-center border px-6 py-2.5 font-body text-[0.75rem] font-semibold uppercase tracking-wide2 transition-colors duration-500 ${
-              light
-                ? "border-ivory/70 text-ivory hover:bg-ivory hover:text-plum"
-                : "border-plum text-plum hover:bg-plum hover:text-ivory"
-            }`}
+            className="inline-flex items-center border border-gold bg-gold/10 px-6 py-2.5 font-body text-[0.75rem] font-semibold uppercase tracking-wide2 text-gold transition-colors duration-300 hover:bg-gold hover:text-ink"
           >
             Plan Your Event
           </MagneticLink>

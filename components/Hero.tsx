@@ -148,7 +148,7 @@ export default function Hero() {
         >
           <MagneticLink
             href="#contact"
-            className="inline-flex items-center bg-ivory px-7 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ink transition-colors duration-300 hover:bg-lavender"
+            className="inline-flex items-center bg-plum px-7 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ivory transition-colors duration-300 hover:bg-gold hover:text-ink"
           >
             Plan Your Event
           </MagneticLink>

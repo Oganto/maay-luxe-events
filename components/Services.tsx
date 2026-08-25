@@ -9,11 +9,15 @@ export default function Services() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section id="services" className="bg-ivory py-28 md:py-36">
-      <div className="container-editorial">
+    <section id="services" className="relative overflow-hidden bg-ivory py-28 md:py-36">
+      {/* Ambient brand-color depth — subtle, blurred, not literal shapes */}
+      <div className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-lavender/30 blur-[100px]" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-gold/20 blur-[100px]" />
+
+      <div className="container-editorial relative">
         <SectionHeading eyebrow="What We Offer" title="Services" align="left" />
 
-        <div className="mt-16 border-t border-ink/10">
+        <div className="mt-16 border-t border-plum/15">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
@@ -23,14 +27,14 @@ export default function Services() {
               transition={{ duration: 0.45, delay: (i % 5) * 0.05 }}
               onMouseEnter={() => setActive(i)}
               onMouseLeave={() => setActive(null)}
-              className="group border-b border-ink/10 py-6 transition-opacity duration-300 md:py-7"
+              className="group border-b border-plum/15 py-6 transition-opacity duration-300 md:py-7"
               style={{
                 opacity: active === null || active === i ? 1 : 0.4,
               }}
             >
               <div className="flex flex-col justify-between gap-2 md:flex-row md:items-baseline md:gap-8">
                 <div className="flex items-baseline gap-5">
-                  <span className="font-body text-xs text-plum/70">
+                  <span className="font-body text-xs text-gold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="font-display text-2xl text-ink transition-colors duration-300 group-hover:text-plum md:text-[1.9rem]">
