@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import AmbientGlow from "./AmbientGlow";
 import { services } from "@/lib/data";
 
 export default function Services() {
@@ -10,9 +11,8 @@ export default function Services() {
 
   return (
     <section id="services" className="relative overflow-hidden bg-ivory py-28 md:py-36">
-      {/* Ambient brand-color depth — subtle, blurred, not literal shapes */}
-      <div className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-lavender/30 blur-[100px]" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-gold/20 blur-[100px]" />
+      {/* Ambient brand-color depth — subtle, blurred, slowly drifting */}
+      <AmbientGlow colorA="lavender" colorB="gold" />
 
       <div className="container-editorial relative">
         <SectionHeading eyebrow="What We Offer" title="Services" align="left" />

@@ -148,7 +148,7 @@ export default function Hero() {
         >
           <MagneticLink
             href="#contact"
-            className="inline-flex items-center bg-plum px-7 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ivory transition-colors duration-300 hover:bg-gold hover:text-ink"
+            className="inline-flex items-center bg-[linear-gradient(90deg,#4E1480_0%,#33105A_55%,#D4A94A_100%)] bg-[length:230%_100%] bg-left px-7 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ivory shadow-[0_8px_30px_-8px_rgba(78,20,128,0.6)] transition-[background-position,box-shadow,color] duration-700 hover:bg-right hover:text-ink hover:shadow-[0_8px_30px_-6px_rgba(212,169,74,0.5)]"
           >
             Plan Your Event
           </MagneticLink>
@@ -173,6 +173,12 @@ export default function Hero() {
           Scroll
         </span>
       </motion.div>
+
+      {/* Seamless hand-off into the next section, rather than a hard cut */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 md:h-32"
+        style={{ background: "linear-gradient(180deg, transparent 0%, #FAF6EF 100%)" }}
+      />
     </section>
   );
 }

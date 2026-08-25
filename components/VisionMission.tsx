@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import PortfolioImage from "./PortfolioImage";
+import AmbientGlow from "./AmbientGlow";
 import { visionMission } from "@/lib/data";
 
 export default function VisionMission() {
   return (
-    <section className="bg-lavender-mist py-28 md:py-36">
-      <div className="container-editorial">
+    <section className="relative overflow-hidden bg-lavender-mist py-28 md:py-36">
+      <AmbientGlow colorA="plum" colorB="lavender" />
+      <div className="container-editorial relative">
         <div className="grid grid-cols-1 gap-14 md:grid-cols-2 md:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -54,7 +56,7 @@ export default function VisionMission() {
             alt="Candlelit proposal styling by Maay Luxe Events"
           />
         </div>
-        <div className="absolute inset-0 bg-plum-deep/70" />
+        <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(51,16,90,0.82)_0%,rgba(78,20,128,0.55)_55%,rgba(212,169,74,0.3)_100%)]" />
         <p className="relative z-10 mx-auto max-w-3xl px-6 text-center font-display text-[clamp(1.8rem,4vw,3rem)] italic leading-tight text-ivory">
           {visionMission.closing}
         </p>

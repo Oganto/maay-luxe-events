@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import AmbientGlow from "./AmbientGlow";
 import { coreValues } from "@/lib/data";
 
 export default function CoreValues() {
   return (
-    <section className="bg-ink py-28 text-ivory md:py-36">
-      <div className="container-editorial">
+    <section className="relative overflow-hidden bg-ink py-28 text-ivory md:py-36">
+      <AmbientGlow colorA="plum" colorB="lavender" />
+      <div className="container-editorial relative">
         <SectionHeading eyebrow="What We Stand On" title="Core Values" align="left" theme="dark" />
 
         <div className="mt-16 border-t border-ivory/15">

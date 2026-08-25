@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import AmbientGlow from "./AmbientGlow";
 import { experienceSteps } from "@/lib/data";
 
 export default function Experience() {
   return (
-    <section id="experience" className="bg-plum-deep py-28 md:py-36">
-      <div className="container-editorial">
+    <section id="experience" className="relative overflow-hidden bg-plum-deep py-28 md:py-36">
+      <AmbientGlow colorA="gold" colorB="plum" />
+      <div className="container-editorial relative">
         <SectionHeading
           eyebrow="How We Work"
           title="The Maay Experience"

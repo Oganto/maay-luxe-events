@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { brand } from "@/lib/data";
 import { MagneticButtonEl } from "./MagneticButton";
+import AmbientGlow from "./AmbientGlow";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -37,8 +38,9 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="bg-plum-deep py-28 text-ivory md:py-36">
-      <div className="container-editorial grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-10">
+    <section id="contact" className="relative overflow-hidden bg-plum-deep py-28 text-ivory md:py-36">
+      <AmbientGlow colorA="lavender" colorB="gold" />
+      <div className="container-editorial relative grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -96,60 +98,62 @@ export default function Contact() {
           onSubmit={handleSubmit}
           className="lg:col-span-6 lg:col-start-7"
         >
-          <div className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2">
-            <div>
-              <label htmlFor="name" className={labelClass}>Name</label>
-              <input id="name" name="name" type="text" required className={inputClass} />
+          <div className="glass-panel rounded-sm p-6 sm:p-8">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2">
+              <div>
+                <label htmlFor="name" className={labelClass}>Name</label>
+                <input id="name" name="name" type="text" required className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="email" className={labelClass}>Email</label>
+                <input id="email" name="email" type="email" required className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="phone" className={labelClass}>Phone</label>
+                <input id="phone" name="phone" type="tel" className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="eventType" className={labelClass}>Event Type</label>
+                <input id="eventType" name="eventType" type="text" placeholder="Wedding, birthday, corporate…" className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="eventDate" className={labelClass}>Event Date</label>
+                <input id="eventDate" name="eventDate" type="date" className={inputClass} />
+              </div>
+              <div>
+                <label htmlFor="location" className={labelClass}>Location</label>
+                <input id="location" name="location" type="text" className={inputClass} />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="guestCount" className={labelClass}>Estimated Guest Count</label>
+                <input id="guestCount" name="guestCount" type="number" min={1} className={inputClass} />
+              </div>
+              <div className="sm:col-span-2">
+                <label htmlFor="vision" className={labelClass}>Tell us about your vision</label>
+                <textarea id="vision" name="vision" rows={4} className={`${inputClass} resize-none`} />
+              </div>
             </div>
-            <div>
-              <label htmlFor="email" className={labelClass}>Email</label>
-              <input id="email" name="email" type="email" required className={inputClass} />
-            </div>
-            <div>
-              <label htmlFor="phone" className={labelClass}>Phone</label>
-              <input id="phone" name="phone" type="tel" className={inputClass} />
-            </div>
-            <div>
-              <label htmlFor="eventType" className={labelClass}>Event Type</label>
-              <input id="eventType" name="eventType" type="text" placeholder="Wedding, birthday, corporate…" className={inputClass} />
-            </div>
-            <div>
-              <label htmlFor="eventDate" className={labelClass}>Event Date</label>
-              <input id="eventDate" name="eventDate" type="date" className={inputClass} />
-            </div>
-            <div>
-              <label htmlFor="location" className={labelClass}>Location</label>
-              <input id="location" name="location" type="text" className={inputClass} />
-            </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="guestCount" className={labelClass}>Estimated Guest Count</label>
-              <input id="guestCount" name="guestCount" type="number" min={1} className={inputClass} />
-            </div>
-            <div className="sm:col-span-2">
-              <label htmlFor="vision" className={labelClass}>Tell us about your vision</label>
-              <textarea id="vision" name="vision" rows={4} className={`${inputClass} resize-none`} />
-            </div>
+
+            <MagneticButtonEl
+              type="submit"
+              disabled={status === "submitting"}
+              strength={0.2}
+              className="mt-10 inline-flex items-center bg-[linear-gradient(90deg,#D4A94A_0%,#A855D1_100%)] bg-[length:230%_100%] bg-left px-8 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ink shadow-[0_8px_30px_-8px_rgba(212,169,74,0.5)] transition-[background-position,box-shadow] duration-700 hover:bg-right disabled:opacity-60"
+            >
+              {status === "submitting" ? "Sending…" : "Inquire With Maay Luxe"}
+            </MagneticButtonEl>
+
+            {status === "success" && (
+              <p className="mt-4 font-body text-sm text-lavender">
+                Thank you — we&apos;ve received your inquiry and will be in touch soon.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="mt-4 font-body text-sm text-red-300">
+                Something went wrong. Please try again, or reach us directly on WhatsApp or email.
+              </p>
+            )}
           </div>
-
-          <MagneticButtonEl
-            type="submit"
-            disabled={status === "submitting"}
-            strength={0.2}
-            className="mt-10 inline-flex items-center bg-gold px-8 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ink transition-colors duration-300 hover:bg-lavender disabled:opacity-60"
-          >
-            {status === "submitting" ? "Sending…" : "Inquire With Maay Luxe"}
-          </MagneticButtonEl>
-
-          {status === "success" && (
-            <p className="mt-4 font-body text-sm text-lavender">
-              Thank you — we&apos;ve received your inquiry and will be in touch soon.
-            </p>
-          )}
-          {status === "error" && (
-            <p className="mt-4 font-body text-sm text-red-300">
-              Something went wrong. Please try again, or reach us directly on WhatsApp or email.
-            </p>
-          )}
         </motion.form>
       </div>
     </section>

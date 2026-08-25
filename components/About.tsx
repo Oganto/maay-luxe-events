@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import PortfolioImage from "./PortfolioImage";
+import AmbientGlow from "./AmbientGlow";
 import { aboutIntro } from "@/lib/data";
 import { gsap } from "@/lib/gsap";
 
@@ -41,8 +42,9 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="bg-ivory py-28 md:py-36">
-      <div className="container-editorial grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-8">
+    <section ref={sectionRef} id="about" className="relative overflow-hidden bg-ivory py-28 md:py-36">
+      <AmbientGlow colorA="lavender" colorB="plum" />
+      <div className="container-editorial relative grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-8">
         {/* Editorial image collage — two offset frames, drifting at different speeds */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
