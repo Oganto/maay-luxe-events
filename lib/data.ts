@@ -30,6 +30,15 @@ export const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+export type StatItem = {
+  value: string;
+  label: string;
+};
+
+// TODO: replace with real numbers — none provided yet. The strip stays
+// hidden (see components/StatsStrip.tsx) until this array has entries.
+export const stats: StatItem[] = [];
+
 export const aboutIntro = [
   "At Maay Luxe Events, we transform ideas into refined celebrations through thoughtful planning, distinctive design and seamless execution.",
   "From the first concept to the final detail, every event is curated to create moments that feel uniquely yours, and define memories.",

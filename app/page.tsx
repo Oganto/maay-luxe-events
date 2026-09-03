@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import StatsStrip from "@/components/StatsStrip";
 import About from "@/components/About";
 import OurStory from "@/components/OurStory";
 import StorySignature from "@/components/StorySignature";
@@ -19,6 +20,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <StatsStrip />
         <About />
         <OurStory />
         <StorySignature />
