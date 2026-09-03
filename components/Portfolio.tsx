@@ -1,17 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useState, type MouseEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import PortfolioImage from "./PortfolioImage";
 import { portfolioItems } from "@/lib/data";
-import { gsap } from "@/lib/gsap";
 
 export default function Portfolio() {
   const [lightboxId, setLightboxId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const lightboxItem = portfolioItems.find((item) => item.id === lightboxId) ?? null;
 
@@ -20,37 +18,6 @@ export default function Portfolio() {
     setCursorPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   }
 
-  // Gentle scroll-scrubbed parallax — alternating tiles drift at slightly
-  // different speeds as the gallery scrolls past. Desktop-only, skipped
-  // for reduced-motion.
-  useEffect(() => {
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
-      const triggers = tileRefs.current.map((el, i) => {
-        if (!el) return null;
-        const inner = el.querySelector<HTMLElement>("[data-parallax-inner]");
-        if (!inner) return null;
-        const direction = i % 2 === 0 ? -1 : 1;
-        return gsap.fromTo(
-          inner,
-          { yPercent: -direction * 14 },
-          {
-            yPercent: direction * 14,
-            ease: "none",
-            scrollTrigger: {
-              trigger: el,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        );
-      });
-      return () => triggers.forEach((t) => t?.scrollTrigger?.kill());
-    });
-    return () => mm.revert();
-  }, []);
-
   return (
     <section id="portfolio" className="bg-porcelain py-24 md:py-36">
       <div className="container-editorial">
@@ -58,69 +25,61 @@ export default function Portfolio() {
           Large, beautiful images with minimal text — letting the work speak.
         </SectionHeading>
 
-        {/* Uniform grid — every tile the same size, matching the client's
-            reference layout rather than a varying "featured" arrangement. */}
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:mt-16 lg:grid-cols-3">
-          {portfolioItems.map((item, i) => (
-            <motion.button
-              type="button"
-              key={item.id}
-              ref={(el) => {
-                tileRefs.current[i] = el as unknown as HTMLDivElement;
-              }}
-              initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-              whileInView={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.8, delay: (i % 6) * 0.06, ease: [0.76, 0, 0.24, 1] }}
-              onClick={() => setLightboxId(item.id)}
-              onMouseEnter={() => setHoveredId(item.id)}
-              onMouseLeave={() => setHoveredId(null)}
-              onMouseMove={handleMouseMove}
-              className="group relative block aspect-square overflow-hidden text-left md:cursor-none"
-            >
-              <div className="h-full w-full overflow-hidden">
-                <div
-                  data-parallax-inner
-                  className="h-[130%] w-full -translate-y-[8%] transition-transform duration-700 ease-editorial group-hover:scale-105 md:h-[140%] md:-translate-y-[10%]"
-                >
-                  <PortfolioImage src={item.image} alt={item.title} />
-                </div>
-              </div>
+        {/* Tight, framed, uniform grid — images stay put once they've faded
+            in; no scroll-linked movement. */}
+        <div className="mt-12 border border-gold/60 p-2 sm:p-3 md:mt-16">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-3">
+            {portfolioItems.map((item, i) => (
+              <motion.button
+                type="button"
+                key={item.id}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.6, delay: (i % 6) * 0.05 }}
+                onClick={() => setLightboxId(item.id)}
+                onMouseEnter={() => setHoveredId(item.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                onMouseMove={handleMouseMove}
+                className="group relative block aspect-square overflow-hidden text-left md:cursor-none"
+              >
+                <PortfolioImage src={item.image} alt={item.title} />
 
-              {item.video && (
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ivory/90 shadow-lg sm:h-14 sm:w-14">
-                    <svg viewBox="0 0 24 24" className="ml-0.5 h-4 w-4 fill-ink sm:h-5 sm:w-5">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </span>
-                </div>
-              )}
-
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/0 to-transparent opacity-70 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100" />
-              <div className="pointer-events-none absolute bottom-0 left-0 p-3 transition-all duration-500 sm:p-5 md:translate-y-3 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
-                <p className="font-display text-sm italic text-ivory sm:text-lg">{item.title}</p>
-              </div>
-
-              {/* Custom "View" cursor tag — desktop only, follows the pointer while hovering */}
-              <AnimatePresence>
-                {hoveredId === item.id && !item.video && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.6 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.6 }}
-                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ left: cursorPos.x, top: cursorPos.y }}
-                    className="pointer-events-none absolute z-10 hidden h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ivory/95 md:flex"
-                  >
-                    <span className="font-body text-[0.62rem] font-semibold uppercase tracking-wide2 text-ink">
-                      View
+                {item.video && (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ivory/90 shadow-lg sm:h-14 sm:w-14">
+                      <svg viewBox="0 0 24 24" className="ml-0.5 h-4 w-4 fill-ink sm:h-5 sm:w-5">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
                     </span>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
-            </motion.button>
-          ))}
+
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/0 to-transparent opacity-70 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100" />
+                <div className="pointer-events-none absolute bottom-0 left-0 p-3 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100">
+                  <p className="font-display text-sm italic text-ivory sm:text-lg">{item.title}</p>
+                </div>
+
+                {/* Custom "View" cursor tag — desktop only, follows the pointer while hovering */}
+                <AnimatePresence>
+                  {hoveredId === item.id && !item.video && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.6 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.6 }}
+                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ left: cursorPos.x, top: cursorPos.y }}
+                      className="pointer-events-none absolute z-10 hidden h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ivory/95 md:flex"
+                    >
+                      <span className="font-body text-[0.62rem] font-semibold uppercase tracking-wide2 text-ink">
+                        View
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+            ))}
+          </div>
         </div>
       </div>
 
