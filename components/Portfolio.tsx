@@ -11,7 +11,6 @@ export default function Portfolio() {
   const [lightboxId, setLightboxId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const gridRef = useRef<HTMLDivElement>(null);
   const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const lightboxItem = portfolioItems.find((item) => item.id === lightboxId) ?? null;
@@ -22,8 +21,8 @@ export default function Portfolio() {
   }
 
   // Gentle scroll-scrubbed parallax — alternating tiles drift at slightly
-  // different speeds as the gallery scrolls past, the classic editorial
-  // gallery feel. Desktop-only and skipped for reduced-motion.
+  // different speeds as the gallery scrolls past. Desktop-only, skipped
+  // for reduced-motion.
   useEffect(() => {
     const mm = gsap.matchMedia();
     mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
@@ -31,13 +30,12 @@ export default function Portfolio() {
         if (!el) return null;
         const inner = el.querySelector<HTMLElement>("[data-parallax-inner]");
         if (!inner) return null;
-        const distance = item(i)?.featured ? 18 : 30;
         const direction = i % 2 === 0 ? -1 : 1;
         return gsap.fromTo(
           inner,
-          { yPercent: -direction * distance * 0.5 },
+          { yPercent: -direction * 14 },
           {
-            yPercent: direction * distance * 0.5,
+            yPercent: direction * 14,
             ease: "none",
             scrollTrigger: {
               trigger: el,
@@ -50,11 +48,6 @@ export default function Portfolio() {
       });
       return () => triggers.forEach((t) => t?.scrollTrigger?.kill());
     });
-
-    function item(i: number) {
-      return portfolioItems[i];
-    }
-
     return () => mm.revert();
   }, []);
 
@@ -65,7 +58,9 @@ export default function Portfolio() {
           Large, beautiful images with minimal text — letting the work speak.
         </SectionHeading>
 
-        <div ref={gridRef} className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:mt-16 lg:grid-cols-3">
+        {/* Uniform grid — every tile the same size, matching the client's
+            reference layout rather than a varying "featured" arrangement. */}
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:mt-16 lg:grid-cols-3">
           {portfolioItems.map((item, i) => (
             <motion.button
               type="button"
@@ -81,9 +76,7 @@ export default function Portfolio() {
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
               onMouseMove={handleMouseMove}
-              className={`group relative block overflow-hidden text-left md:cursor-none ${
-                item.orientation === "portrait" ? "aspect-[3/4]" : "aspect-[4/3]"
-              } ${item.featured ? "col-span-2" : ""}`}
+              className="group relative block aspect-square overflow-hidden text-left md:cursor-none"
             >
               <div className="h-full w-full overflow-hidden">
                 <div
@@ -93,6 +86,17 @@ export default function Portfolio() {
                   <PortfolioImage src={item.image} alt={item.title} />
                 </div>
               </div>
+
+              {item.video && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ivory/90 shadow-lg sm:h-14 sm:w-14">
+                    <svg viewBox="0 0 24 24" className="ml-0.5 h-4 w-4 fill-ink sm:h-5 sm:w-5">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                </div>
+              )}
+
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/0 to-transparent opacity-70 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100" />
               <div className="pointer-events-none absolute bottom-0 left-0 p-3 transition-all duration-500 sm:p-5 md:translate-y-3 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
                 <p className="font-display text-sm italic text-ivory sm:text-lg">{item.title}</p>
@@ -100,7 +104,7 @@ export default function Portfolio() {
 
               {/* Custom "View" cursor tag — desktop only, follows the pointer while hovering */}
               <AnimatePresence>
-                {hoveredId === item.id && (
+                {hoveredId === item.id && !item.video && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.6 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -120,7 +124,7 @@ export default function Portfolio() {
         </div>
       </div>
 
-      {/* Full-screen viewer */}
+      {/* Full-screen viewer — plays the real video for video items */}
       <AnimatePresence>
         {lightboxItem && (
           <motion.div
@@ -149,11 +153,23 @@ export default function Portfolio() {
               onClick={(e) => e.stopPropagation()}
               className="flex max-h-[85vh] max-w-4xl flex-col items-center"
             >
-              <PortfolioImage
-                src={lightboxItem.image}
-                alt={lightboxItem.title}
-                className="max-h-[70vh] w-auto object-contain"
-              />
+              {lightboxItem.video ? (
+                // eslint-disable-next-line jsx-a11y/media-has-caption
+                <video
+                  src={lightboxItem.video}
+                  poster={lightboxItem.image}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="max-h-[70vh] w-auto"
+                />
+              ) : (
+                <PortfolioImage
+                  src={lightboxItem.image}
+                  alt={lightboxItem.title}
+                  className="max-h-[70vh] w-auto object-contain"
+                />
+              )}
               <div className="mt-5 max-w-lg text-center">
                 <p className="font-display text-xl italic text-ivory">{lightboxItem.title}</p>
                 {lightboxItem.caption && (

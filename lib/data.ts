@@ -138,31 +138,28 @@ export type PortfolioItem = {
   id: string;
   title: string;
   category: PortfolioCategory;
+  /** Image path — for videos, this is the poster/thumbnail frame. */
   image: string;
-  orientation: "portrait" | "landscape";
   caption?: string;
-  /** Larger grid treatment for standout images — curated, not automatic. */
-  featured?: boolean;
+  /** Present only for video items — the actual video file path. */
+  video?: string;
 };
 
-// Real event photography. Order and `featured` are curated for the grid
-// layout — rearrange freely, the gallery follows this array's order.
+// Real event photography and video. The gallery renders these in a uniform
+// grid, in this array's order — rearrange freely.
 export const portfolioItems: PortfolioItem[] = [
   {
     id: "event-01",
     title: "Hall Reception Styling",
     category: "Corporate",
     image: "/assets/events/event-01-hall-reception.jpg",
-    orientation: "landscape",
     caption: "Draped gold and ivory staging for a milestone reception, warmed by soft ambient light.",
-    featured: true,
   },
   {
     id: "event-02",
     title: "Rooftop Proposal",
     category: "Weddings",
     image: "/assets/events/event-02-rooftop-proposal.jpg",
-    orientation: "portrait",
     caption: "A skyline backdrop, a rose-framed arch, and a moment designed to be said yes to.",
   },
   {
@@ -170,40 +167,56 @@ export const portfolioItems: PortfolioItem[] = [
     title: "Bluey-Themed Birthday",
     category: "Birthdays",
     image: "/assets/events/event-03-bluey-birthday.jpg",
-    orientation: "portrait",
     caption: "A playful world in soft blue and gold, built around a favourite character.",
+  },
+  {
+    id: "event-12",
+    title: "Emerald & Gold Reception",
+    category: "Weddings",
+    image: "/assets/events/event-12-green-gold-reception.jpg",
+    caption: "Deep emerald linens against gold chargers, styled beneath a draped garden canopy.",
   },
   {
     id: "event-06",
     title: "Elegant Place Setting",
     category: "Styling & Decor",
     image: "/assets/events/event-06-place-setting.jpg",
-    orientation: "portrait",
     caption: "Fine china and gold flatware, finished with a single bloom at every seat.",
+  },
+  {
+    id: "event-13",
+    title: "Ivory & Gold Ballroom",
+    category: "Weddings",
+    image: "/assets/events/event-13-white-gold-reception.jpg",
+    caption: "Crystal chandeliers and candlelight over an all-white reception, styled for grandeur.",
   },
   {
     id: "event-05",
     title: "In The Wild II — Picnic Setup",
     category: "Celebrations",
     image: "/assets/events/event-05-picnic-setup.jpg",
-    orientation: "landscape",
     caption: "Low seating, layered textiles, and florals arranged for an intimate outdoor gathering.",
-    featured: true,
   },
   {
     id: "event-07",
     title: "White Rose Table Styling",
     category: "Weddings",
     image: "/assets/events/event-07-white-rose-table.jpg",
-    orientation: "portrait",
     caption: "Cascading white roses along a mirrored table, restrained and romantic.",
+  },
+  {
+    id: "event-10",
+    title: "Birthday Backdrop Styling",
+    category: "Birthdays",
+    image: "/assets/events/event-10-birthday-backdrop-poster.jpg",
+    video: "/assets/events/event-10-birthday-backdrop.mp4",
+    caption: "A lavender backdrop with a floral monogram and a gold-flecked balloon garland.",
   },
   {
     id: "event-08",
     title: "In-Room Proposal",
     category: "Weddings",
     image: "/assets/events/event-08-inroom-proposal.jpg",
-    orientation: "portrait",
     caption: "Candlelight, red balloons, and a headboard spelled out for a private proposal.",
   },
   {
@@ -211,17 +224,22 @@ export const portfolioItems: PortfolioItem[] = [
     title: "In The Wild II — Garden Picnic",
     category: "Celebrations",
     image: "/assets/events/event-04-in-the-wild-picnic.jpg",
-    orientation: "landscape",
     caption: "An open-air picnic styled in blush tones, set against manicured garden hedges.",
+  },
+  {
+    id: "event-11",
+    title: "60th Birthday Arch",
+    category: "Birthdays",
+    image: "/assets/events/event-11-60th-arch-poster.jpg",
+    video: "/assets/events/event-11-60th-arch.mp4",
+    caption: "A floral archway framing a live photo montage for the guest of honour.",
   },
   {
     id: "event-09",
     title: "60th Birthday Celebration",
     category: "Birthdays",
     image: "/assets/events/event-09-60th-birthday.jpg",
-    orientation: "landscape",
     caption: "A milestone birthday styled in blush and gold beneath a draped tent.",
-    featured: true,
   },
 ];
 
