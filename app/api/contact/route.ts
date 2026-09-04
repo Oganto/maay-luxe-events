@@ -3,15 +3,16 @@ import { NextResponse } from "next/server";
 // ---------------------------------------------------------------------------
 // Handles inquiries submitted from the Contact section.
 //
-// Currently this validates the payload and logs it — no email/CRM
-// credentials have been provided yet, so nothing is actually sent.
+// The primary delivery path is WhatsApp: the Contact form opens a wa.me
+// link with the inquiry pre-filled, straight to Maay Luxe's WhatsApp
+// number. This route is a secondary server-side log/backup only — it's
+// called in the background and doesn't block the WhatsApp handoff.
 //
-// To wire up real delivery on Vercel, the simplest path is Resend:
+// If you'd also like inquiries emailed (e.g. as a backup record), the
+// simplest path on Vercel is Resend:
 //   1. npm install resend
 //   2. Set RESEND_API_KEY in Vercel project env vars
 //   3. Uncomment the Resend block below
-// Any other provider (Nodemailer + SMTP, SendGrid, a CRM webhook, etc.)
-// works the same way — swap the block that sends `data`.
 // ---------------------------------------------------------------------------
 
 type ContactPayload = {

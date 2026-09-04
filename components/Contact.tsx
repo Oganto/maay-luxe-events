@@ -13,6 +13,23 @@ const inputClass =
 
 const labelClass = "font-body text-[0.68rem] uppercase tracking-wide2 text-ivory/65";
 
+function buildWhatsAppMessage(data: Record<string, FormDataEntryValue>) {
+  const lines = [
+    "New inquiry from the Maay Luxe website:",
+    "",
+    `Name: ${data.name || "—"}`,
+    `Email: ${data.email || "—"}`,
+    `Phone: ${data.phone || "—"}`,
+    `Event type: ${data.eventType || "—"}`,
+    `Event date: ${data.eventDate || "—"}`,
+    `Location: ${data.location || "—"}`,
+    `Estimated guests: ${data.guestCount || "—"}`,
+    "",
+    `Vision: ${data.vision || "—"}`,
+  ];
+  return lines.join("\n");
+}
+
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
 
@@ -23,13 +40,21 @@ export default function Contact() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
 
+    // Fire the backend log in the background — it's a record/fallback,
+    // not the primary delivery path, so it shouldn't block WhatsApp opening.
+    fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }).catch(() => {
+      /* logging is best-effort; WhatsApp below is the real delivery */
+    });
+
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error("Request failed");
+      const message = buildWhatsAppMessage(data);
+      const whatsappNumber = brand.whatsappUrl.split("/").pop();
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
       setStatus("success");
       form.reset();
     } catch {
@@ -140,17 +165,17 @@ export default function Contact() {
               strength={0.2}
               className="mt-10 inline-flex items-center bg-[linear-gradient(90deg,#D4A94A_0%,#A855D1_100%)] bg-[length:230%_100%] bg-left px-8 py-3.5 font-body text-[0.78rem] font-semibold uppercase tracking-wide2 text-ink shadow-[0_8px_30px_-8px_rgba(212,169,74,0.5)] transition-[background-position,box-shadow] duration-700 hover:bg-right disabled:opacity-60"
             >
-              {status === "submitting" ? "Sending…" : "Inquire With Maay Luxe"}
+              {status === "submitting" ? "Opening WhatsApp…" : "Send Inquiry via WhatsApp"}
             </MagneticButtonEl>
 
             {status === "success" && (
               <p className="mt-4 font-body text-sm text-lavender">
-                Thank you — we&apos;ve received your inquiry and will be in touch soon.
+                WhatsApp is opening with your details filled in — just hit send there to reach us.
               </p>
             )}
             {status === "error" && (
               <p className="mt-4 font-body text-sm text-red-300">
-                Something went wrong. Please try again, or reach us directly on WhatsApp or email.
+                Something went wrong. Please try again, or message us directly on WhatsApp or email.
               </p>
             )}
           </div>
