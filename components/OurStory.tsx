@@ -18,7 +18,7 @@ export default function OurStory() {
             </h2>
             <div className="mt-10 aspect-[4/5] w-full max-w-sm overflow-hidden border-4 border-ivory shadow-xl">
               <PortfolioImage
-                src="/assets/events/event-02-rooftop-proposal.jpg"
+                src="/assets/events/event-14-rose-heart-proposal.jpg"
                 alt="Styling by Maay Luxe Events"
               />
             </div>

@@ -241,6 +241,13 @@ export const portfolioItems: PortfolioItem[] = [
     image: "/assets/events/event-09-60th-birthday.jpg",
     caption: "A milestone birthday styled in blush and gold beneath a draped tent.",
   },
+  {
+    id: "event-14",
+    title: "Rose Heart Proposal",
+    category: "Weddings",
+    image: "/assets/events/event-14-rose-heart-proposal.jpg",
+    caption: "Hundreds of red roses shaped into a heart, framed by candlelight and a glowing 'Will You Marry Me?' sign.",
+  },
 ];
 
 export const experienceSteps = [
